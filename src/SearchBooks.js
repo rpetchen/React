@@ -1,8 +1,8 @@
-var React = require('react')
-import * as BooksAPI from './BooksAPI'
-import BookView from './BookView.js'
+var React = require("react");
+import * as BooksAPI from "./BooksAPI";
+import BookView from "./BookView.js";
 
-var Link = require('react-router-dom').Link
+var Link = require("react-router-dom").Link;
 
 function SearchResults (props) {
 
@@ -23,35 +23,35 @@ class SearchBooks extends React.Component {
 constructor(props){
 	super(props);
 	this.state = {
-		query: '',
-		results: '',
-		noResults: ''
+		query: "",
+		results: "",
+		noResults: ""
 	};
-	this.updateQuery = this.updateQuery.bind(this)
+	this.updateQuery = this.updateQuery.bind(this);
 }
 
 
 
  componentDidMount(){
-	console.log(this.props)
+	console.log(this.props);
 }
 
 updateQuery = (query) =>{
-	this.setState({query: query})
+	this.setState({query: query});
 
 	BooksAPI.search(this.state.query, 6).then( books =>{
 		if (books && !books.error){
 			this.setState({results: books,
-				noResults: false})
+				noResults: false});
 			
 		}
 		else {
-			this.setState({results: '',
-				noResults: true})
+			this.setState({results: "",
+				noResults: true});
 		}
-		console.log(this.state.results)
+		console.log(this.state.results);
 	}).catch(err => {
-		console.log(err)
+		console.log(err);
 	})
 }
 
@@ -69,8 +69,8 @@ render() {
               >Close</Link>
               <div className="search-books-input-wrapper">
                <input 
-    			type='text'
-     			placeholder='Search by title or author'
+    			type="text"
+     			placeholder="Search by title or author"
      			value={query}
      			onChange={(event) => this.updateQuery(event.target.value)}
      			/>

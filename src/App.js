@@ -1,56 +1,56 @@
-import React from 'react'
-import * as BooksAPI from './BooksAPI'
-import './App.css'
-var SearchBooks = require('./SearchBooks.js')
-var Listbooks = require('./ListBooks.js')
-var ReactRouter = require('react-router-dom');
+import React from "react";
+import * as BooksAPI from "./BooksAPI";
+import "./App.css";
+var SearchBooks = require("./SearchBooks.js");
+var Listbooks = require("./ListBooks.js");
+var ReactRouter = require("react-router-dom");
 var Router = ReactRouter.BrowserRouter;
 var Route = ReactRouter.Route;
 
 
 class BooksApp extends React.Component {
-constructor(props){
-  super(props);
-this.state={
-  read: "",
+        constructor(props) {
+            super(props);
+            this.state = {
+                read: "",
 
-  value: "",
-  currentlyReading: "",
-  wantToRead: ""
-} 
+                value: "",
+                currentlyReading: "",
+                wantToRead: ""
+            };
 
-this.ShelfPlacement = this.ShelfPlacement.bind(this)
-}
+            this.ShelfPlacement = this.ShelfPlacement.bind(this);
+        }
 
-getBook=()=>{
-  BooksAPI.getAll().then(books =>{
-      
-      this.ShelfPlacement(books)
-    }).then(reads =>{
-      
-    })
-  }
+        getBook = () => {
+            BooksAPI.getAll().then(books => {
 
-changeState=(book, event)=>{
-  console.log(event.target.value)
-BooksAPI.update(book, event.target.value).then( results =>{
-this.getBook()
-})
-}
+                this.ShelfPlacement(books);
+            }).then(reads => {
 
-ShelfPlacement=(books)=>{
-var read = books.filter((b) => b.shelf === "read")
+            });
+        };
 
-var currentlyReading = books.filter((b) => b.shelf === "currentlyReading")
+        changeState = (book, event) => {
+            console.log(event.target.value)
+            BooksAPI.update(book, event.target.value).then(results => {
+                this.getBook()
+            });
+        };
 
-var wantToRead = books.filter((b) => b.shelf === "wantToRead")
+        ShelfPlacement = (books) => {
+            var read = books.filter((b) => b.shelf === "read");
 
-this.setState({
-  read: read,
-  currentlyReading: currentlyReading,
-  wantToRead: wantToRead
-})
-}
+            var currentlyReading = books.filter((b) => b.shelf === "currentlyReading");
+
+            var wantToRead = books.filter((b) => b.shelf === "wantToRead");
+
+            this.setState({
+                read: read,
+                currentlyReading: currentlyReading,
+                wantToRead: wantToRead
+            });
+        };
 
   render() {
     return(

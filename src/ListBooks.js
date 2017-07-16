@@ -1,14 +1,14 @@
-var React = require('react');
+var React = require("react");
 
-var Link = require('react-router-dom').Link
-import BookView from './BookView.js'
+var Link = require("react-router-dom").Link;
+import BookView from "./BookView.js";
 
 class ListBooks extends React.Component {
 
 
   componentDidMount(){
-  	this.props.getBook()
-  }
+   this.props.getBook()
+  };
 
 
 
@@ -61,6 +61,6 @@ return(
         <Link to="/search">Add a book</Link>
     </div>
 </div>
-) } }
+) } };
 
 module.exports = ListBooks
