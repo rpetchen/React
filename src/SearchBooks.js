@@ -5,11 +5,13 @@ import BookView from './BookView.js'
 var Link = require('react-router-dom').Link
 
 function SearchResults (props) {
+
 return (
 <ol className="books-grid">	
 {props.results.map((book) => {
 return(
-	 <BookView books={book} key={book.id}>
+	 <BookView books={book} key={book.id}
+	 func={props.changeState}>
 	 </BookView>
      )
      })}
@@ -29,6 +31,10 @@ constructor(props){
 }
 
 
+
+ componentDidMount(){
+	console.log(this.props)
+}
 
 updateQuery = (query) =>{
 	this.setState({query: query})
@@ -74,7 +80,7 @@ render() {
               
               {this.state.query.length === 0 && <h1> Enter your search criteria above </h1>}
               {this.state.noResults && <h1> Results could not be found </h1>}
-              {this.state.results && <SearchResults results={this.state.results}/>}
+              {this.state.results && <SearchResults results={this.state.results} changeState={this.props.changeState}/>}
               
              
             </div>

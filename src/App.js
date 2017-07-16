@@ -1,5 +1,5 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
 var SearchBooks = require('./SearchBooks.js')
 var Listbooks = require('./ListBooks.js')
@@ -12,21 +12,30 @@ class BooksApp extends React.Component {
 constructor(props){
   super(props);
 this.state={
-  read: ["book 1 ", "book 2","book 1 ", "book 2","book 1 ", "book 2"],
+  read: "",
+
   value: "",
   currentlyReading: "",
   wantToRead: ""
-}
-this.changeState = this.changeState.bind(this)
+} 
+
 this.ShelfPlacement = this.ShelfPlacement.bind(this)
 }
 
+getBook=()=>{
+  BooksAPI.getAll().then(books =>{
+      
+      this.ShelfPlacement(books)
+    }).then(reads =>{
+      
+    })
+  }
 
-
-changeState =(test)=>{
-if (test.target.value === "read"){
- this.setState({read: ["WORKED"]})
-}
+changeState=(book, event)=>{
+  console.log(event.target.value)
+BooksAPI.update(book, event.target.value).then( results =>{
+this.getBook()
+})
 }
 
 ShelfPlacement=(books)=>{
@@ -42,6 +51,7 @@ this.setState({
   wantToRead: wantToRead
 })
 }
+
   render() {
     return(
   <Router>
@@ -50,14 +60,19 @@ this.setState({
 
       <div className="app">
          <Route path="/" exact render={() =>(
-        <Listbooks test={this.changeState}
-        Shelf={this. ShelfPlacement}
-        state={this.state} />
+        <Listbooks 
+        Shelf={this.ShelfPlacement}
+        state={this.state} 
+        getBook={this.getBook}
+        changeState={this.changeState}
+        />
           
         )}/>   
 
       <Route path="/search" exact render={() =>(
-        <SearchBooks />
+        <SearchBooks changeState={this.changeState}
+
+        />
           
         )}/>     
       </div>
