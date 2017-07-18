@@ -11,6 +11,7 @@ return (
 {props.results.map((book) => {
 return(
 	 <BookView books={book} key={book.id}
+	 allBooks={props.allBooks}
 	 func={props.changeState}>
 	 </BookView>
      )
@@ -27,14 +28,16 @@ constructor(props){
 		results: "",
 		noResults: ""
 	};
+	
 	this.updateQuery = this.updateQuery.bind(this);
 }
 
 
 
  componentDidMount(){
-	console.log(this.props);
+	
 }
+
 
 updateQuery = (query) =>{
 	this.setState({query: query});
@@ -42,18 +45,19 @@ updateQuery = (query) =>{
 	BooksAPI.search(this.state.query, 6).then( books =>{
 		if (books && !books.error){
 			this.setState({results: books,
-				noResults: false});
-			
+			noResults: false})
 		}
 		else {
 			this.setState({results: "",
 				noResults: true});
 		}
-		console.log(this.state.results);
+		
 	}).catch(err => {
-		console.log(err);
+		
 	})
 }
+
+
 
 
 render() {
@@ -80,7 +84,7 @@ render() {
               
               {this.state.query.length === 0 && <h1> Enter your search criteria above </h1>}
               {this.state.noResults && <h1> Results could not be found </h1>}
-              {this.state.results && <SearchResults results={this.state.results} changeState={this.props.changeState}/>}
+              {this.state.results && <SearchResults allBooks={this.props.state.allbooks} results={this.state.results} changeState={this.props.changeState}/>}
               
              
             </div>

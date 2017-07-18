@@ -12,6 +12,7 @@ class BooksApp extends React.Component {
         constructor(props) {
             super(props);
             this.state = {
+            	allbooks:"",
                 read: "",
 
                 value: "",
@@ -24,6 +25,9 @@ class BooksApp extends React.Component {
 
         getBook = () => {
             BooksAPI.getAll().then(books => {
+            	   this.setState({
+              		allbooks: books
+            });
 
                 this.ShelfPlacement(books);
             }).then(reads => {
@@ -32,7 +36,7 @@ class BooksApp extends React.Component {
         };
 
         changeState = (book, event) => {
-            console.log(event.target.value)
+           
             BooksAPI.update(book, event.target.value).then(results => {
                 this.getBook()
             });
@@ -65,13 +69,14 @@ class BooksApp extends React.Component {
         state={this.state} 
         getBook={this.getBook}
         changeState={this.changeState}
+        allbooks={this.state.allbooks}
         />
           
         )}/>   
 
       <Route path="/search" exact render={() =>(
         <SearchBooks changeState={this.changeState}
-
+        state={this.state}
         />
           
         )}/>     

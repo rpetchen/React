@@ -27,7 +27,7 @@ return(
                 <div className="bookshelf-books">
                     <ol className="books-grid">
                         {this.props.state.currentlyReading && this.props.state.currentlyReading.map((book)=>{ return(
-                        <BookView books={book} key={book.id} func={this.props.changeState}>
+                        <BookView books={book} key={book.id} allBooks={this.props.allbooks} func={this.props.changeState}>
                         </BookView>
                         ) })}
                     </ol>
@@ -38,7 +38,7 @@ return(
                 <div className="bookshelf-books">
                     <ol className="books-grid">
                         {this.props.state.wantToRead && this.props.state.wantToRead.map((book)=>{ return(
-                        <BookView books={book} key={book.id} func={this.props.changeState}>
+                        <BookView books={book} key={book.id} allBooks={this.props.allbooks}  func={this.props.changeState}>
                         </BookView>
                         ) })}
                     </ol>
@@ -49,7 +49,7 @@ return(
                 <div className="bookshelf-books">
                     <ol className="books-grid">
                         {this.props.state.read && this.props.state.read.map((book)=>{ return(
-                        <BookView books={book} key={book.id} func={this.props.changeState}>
+                        <BookView books={book} key={book.id} allBooks={this.props.allbooks} func={this.props.changeState}>
                         </BookView>
                         ) })}
                     </ol>
